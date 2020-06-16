@@ -10,7 +10,6 @@
     "start": "node server.js"
   },
   "devDependencies": {
-    "husky": "^4.2.5",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
