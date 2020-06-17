@@ -4,10 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon",
-    "lint": "eslint --ext .js,.html -f ./node_modules/eslint-friendly-formatter . --fix",
-    "prepush": "npm run lint",
-    "start": "node server.js"
+    "dev": "nodemon"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

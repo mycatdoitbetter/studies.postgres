@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
     [name, phone, description]
   );
 
-  res.status(201).send({
+  res.json({
     message: "contact added successfully!",
     body: {
       contact: { name, phone, description },
@@ -19,11 +19,11 @@ exports.create = async (req, res) => {
 
 exports.read = async (req, res) => {
   const response = await db.query("select * from contacts ORDER BY name ASC");
-  res.status(200).send(response.rows);
+  res.json(response.rows);
 };
 
 exports.update = async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const { name, phone, description } = req.body;
 
   await db.query(
@@ -31,18 +31,11 @@ exports.update = async (req, res) => {
     [name, phone, description, id]
   );
 
-  const updatedContact = await db.query(
-    "select * from contacts where id = $1 order by name ASC",
-    [id]
-  );
-
-  res
-    .status(200)
-    .send({ message: "Contact updated!", newContact: updatedContact.rows });
+  res.json({ message: "Contact updated!" });
 };
 
 exports.delete = async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
 
   const deletedContact = await db.query(
     "select * from contacts where id = $1 order by name ASC",
@@ -51,8 +44,7 @@ exports.delete = async (req, res) => {
 
   await db.query("delete from contacts where id = $1", [id]);
 
-  res.status(200).send({
+  res.json({
     message: "Contact deleted!",
-    delectedContact: deletedContact.rows,
   });
 };
